@@ -13,7 +13,7 @@ RUN wget https://dl.winehq.org/wine-builds/winehq.key \
     && apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/ \
     && apt-get update \
     && apt-get install -y winehq-stable \
-    && apt-get remove -y software-properties-common apt-transport-https
+    && apt-get remove -y software-properties-common apt-transport-https \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
