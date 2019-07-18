@@ -7,7 +7,8 @@ ENV WINEPREFIX=/wine \
     PUID=0 \
     PGID=0
 
-RUN apt-get install -y xvfb winbind cabextract \
+RUN apt-get update \
+    && apt-get install -y xvfb winbind cabextract \
     && wget https://dl.winehq.org/wine-builds/winehq.key \
     && apt-key add winehq.key \
     && rm winehq.key \
