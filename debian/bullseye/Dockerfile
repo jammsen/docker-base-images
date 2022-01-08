@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM debian:bullseye-slim
 
 LABEL maintainer="Sebastian Schmidt"
 
@@ -11,10 +11,9 @@ RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
     && echo $TIMEZONE > /etc/timezone \
     && dpkg --add-architecture i386 \
     && apt-get update \
-    && apt-get install -y lib32gcc-s1 wget software-properties-common procps apt-transport-https \
-    && apt-get upgrade -y \
-    && apt-get dist-upgrade -y \
+    && apt-get install -y --no-install-recommends wget procps \
     && apt-get clean \
+    && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 CMD ["/bin/bash"]
