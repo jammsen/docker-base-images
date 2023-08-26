@@ -8,15 +8,8 @@ on:
       - 'master'
 
 jobs:
-  docker:
+  docker-build-base-debian:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - image: jammsen/base:debian-bullseye
-            dockerfile: debian/bullseye/Dockerfile
-          - image: jammsen/base:wine-stable-debian-bullseye
-            dockerfile: debian/bullseye/wine/Dockerfile
     steps:
       -
         name: Set up QEMU
@@ -34,7 +27,30 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: ${{ matrix.dockerfile }}
           push: true
-          tags: ${{ matrix.image }}
+          context: debian/bullseye
+          tags: jammsen/base:debian-bullseye
+
+  docker-build-base-debian-wine:
+    runs-on: ubuntu-latest
+    needs: docker-build-base-debian
+    steps:
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          context: debian/bullseye/wine/
+          tags: jammsen/base:wine-stable-debian-bullseye
