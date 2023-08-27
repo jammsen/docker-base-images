@@ -51,7 +51,7 @@ jobs:
         continue-on-error: true
         with:
           image: jammsen/base:debian-bullseye
-          args: --file=Dockerfile --severity-threshold=high --sarif-file-output=snyk.sarif
+          args: --file=debian/bullseye/Dockerfile --severity-threshold=high --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
