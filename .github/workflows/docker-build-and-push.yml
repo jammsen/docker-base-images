@@ -1,4 +1,4 @@
-name: docker-build-and-push-ci
+name: ci-build
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
       - 'master'
 
 jobs:
-  docker-build-base-debian:
+  base-debian:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,9 +33,9 @@ jobs:
           context: debian/bullseye
           tags: jammsen/base:debian-bullseye
 
-  scan-docker-build-base-debian:
+  scan-base-debian:
     runs-on: ubuntu-latest
-    needs: [ docker-build-base-debian ]
+    needs: [ base-debian ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -60,9 +60,9 @@ jobs:
         with:
           sarif_file: snyk.sarif
 
-  docker-build-base-debian-wine:
+  base-debian-wine:
     runs-on: ubuntu-latest
-    needs: [ docker-build-base-debian, scan-docker-build-base-debian ]
+    needs: [ base-debian, scan-base-debian ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -86,9 +86,9 @@ jobs:
           context: debian/bullseye/wine/
           tags: jammsen/base:wine-stable-debian-bullseye
 
-  scan-docker-build-base-debian-wine:
+  scan-base-debian-wine:
     runs-on: ubuntu-latest
-    needs: [ docker-build-base-debian-wine ]
+    needs: [ base-debian-wine ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
