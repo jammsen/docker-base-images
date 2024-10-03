@@ -1,4 +1,4 @@
-FROM jammsen/base:debian-bullseye
+FROM jammsen/base:debian-bookworm
 
 LABEL maintainer="Sebastian Schmidt"
 
@@ -9,10 +9,9 @@ ENV WINEPREFIX=/wine \
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends software-properties-common apt-transport-https gnupg2 \
-    && wget https://dl.winehq.org/wine-builds/winehq.key \
-    && apt-key add winehq.key \
-    && rm winehq.key \
-    && echo "deb https://dl.winehq.org/wine-builds/debian/ bullseye main" >> /etc/apt/sources.list.d/winehq.list \
+    && mkdir -pm755 /etc/apt/keyrings \
+    && wget --output-document /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
+    && wget --timestamping --directory-prefix=/etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/bookworm/winehq-bookworm.sources \
     && apt-get update \
     && apt-get install -y --no-install-recommends winehq-stable \
     && apt-get remove -y --purge software-properties-common apt-transport-https gnupg2 \

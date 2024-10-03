@@ -1,4 +1,4 @@
-FROM jammsen/base:debian-bullseye
+FROM jammsen/base:debian-bookworm
 
 LABEL maintainer="Sebastian Schmidt"
 
@@ -9,10 +9,9 @@ ENV WINEPREFIX=/wine \
 
 RUN apt-get update \
     && apt-get install -y xvfb winbind cabextract \
-    && wget https://dl.winehq.org/wine-builds/winehq.key \
-    && apt-key add winehq.key \
-    && rm winehq.key \
-    && apt-add-repository https://dl.winehq.org/wine-builds/debian/ \
+    && mkdir -pm755 /etc/apt/keyrings \
+    && wget --output-document /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
+    && wget --timestamping --directory-prefix=/etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/bookworm/winehq-bookworm.sources \
     && apt-get update \
     && apt-get install -y winehq-stable \
     && wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
