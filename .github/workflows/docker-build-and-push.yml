@@ -30,8 +30,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: debian/bullseye
-          tags: jammsen/base:debian-bullseye
+          context: debian/bookworm
+          tags: jammsen/base:debian-bookworm
 
   scan-base-debian:
     runs-on: ubuntu-latest
@@ -50,8 +50,8 @@ jobs:
         uses: snyk/actions/docker@master
         continue-on-error: true
         with:
-          image: jammsen/base:debian-bullseye
-          args: --file=debian/bullseye/Dockerfile --severity-threshold=high --sarif-file-output=snyk.sarif
+          image: jammsen/base:debian-bookworm
+          args: --file=debian/bookworm/Dockerfile --severity-threshold=high --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -83,8 +83,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: debian/bullseye/wine/
-          tags: jammsen/base:wine-stable-debian-bullseye
+          context: debian/bookworm/wine/
+          tags: jammsen/base:wine-stable-debian-bookworm
 
   scan-base-debian-wine:
     runs-on: ubuntu-latest
@@ -103,8 +103,8 @@ jobs:
         uses: snyk/actions/docker@master
         continue-on-error: true
         with:
-          image: jammsen/base:wine-stable-debian-bullseye
-          args: --file=debian/bullseye/wine/Dockerfile --severity-threshold=high --sarif-file-output=snyk.sarif
+          image: jammsen/base:wine-stable-debian-bookworm
+          args: --file=debian/bookworm/wine/Dockerfile --severity-threshold=high --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
