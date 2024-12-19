@@ -1,4 +1,4 @@
-FROM jammsen/base:ubuntu-18.04
+FROM jammsen/base:ubuntu-24.04
 
 LABEL maintainer="Sebastian Schmidt"
 
