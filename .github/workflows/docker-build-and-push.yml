@@ -51,7 +51,7 @@ jobs:
         continue-on-error: true
         with:
           image: jammsen/base:debian-bookworm
-          args: --file=debian/bookworm/Dockerfile --severity-threshold=high --sarif-file-output=snyk.sarif
+          args: --file=debian/bookworm/Dockerfile --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -59,6 +59,15 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk.sarif
+
+      - name: Run Snyk Monitor
+        uses: snyk/actions/docker@master
+        with:
+          image: jammsen/base:debian-bookworm
+          command: monitor
+          args: --file=debian/bookworm/Dockerfile
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   base-debian-wine:
     runs-on: ubuntu-latest
@@ -112,3 +121,12 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk.sarif
+
+      - name: Run Snyk Monitor
+        uses: snyk/actions/docker@master
+        with:
+          image: jammsen/base:wine-stable-debian-bookworm
+          command: monitor
+          args: --file=debian/bookworm/wine/Dockerfile
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
