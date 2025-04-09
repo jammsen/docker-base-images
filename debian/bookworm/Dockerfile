@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:12.10-slim
 
 LABEL maintainer="Sebastian Schmidt"
 
