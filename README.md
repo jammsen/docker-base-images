@@ -1,7 +1,4 @@
 # Various base images for Docker
-Used:
-    - Debian Bookworm
-Testing: 
-    - Debian Bullseye
-Inactive:
-    - Ubuntu 24.04
+    - Debian 12 Bookworm
+    - Debian 13 Trixie
+    - Ubuntu 26.04

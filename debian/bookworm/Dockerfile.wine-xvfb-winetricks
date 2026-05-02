@@ -1,19 +1,24 @@
-FROM jammsen/base:debian-bookworm
+FROM jammsen/base:debian-bookworm-base
 
 LABEL maintainer="Sebastian Schmidt"
 
-ENV WINEPREFIX=/wine \
+ENV TIMEZONE=Europe/Berlin \
+    WINEPREFIX=/wine \
     DEBIAN_FRONTEND=noninteractive \
     PUID=0 \
     PGID=0
 
-RUN apt-get update \
-    && apt-get install -y xvfb winbind cabextract \
+RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
+    && echo $TIMEZONE > /etc/timezone \
+    && dpkg --add-architecture i386 \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends --no-install-suggests apt-transport-https gnupg2 procps software-properties-common wget \
+    && apt-get install -y --no-install-recommends --no-install-suggests xvfb winbind cabextract \
     && mkdir -pm755 /etc/apt/keyrings \
-    && wget --output-document /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
+    && wget -O- https://dl.winehq.org/wine-builds/winehq.key | gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key \
     && wget --timestamping --directory-prefix=/etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/bookworm/winehq-bookworm.sources \
     && apt-get update \
-    && apt-get install -y winehq-stable \
+    && apt-get install -y --no-install-recommends --no-install-suggests winehq-stable \
     && wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
     && chmod +x ./winetricks \
     && WINEDLLOVERRIDES="mscoree,mshtml=" wineboot -u \

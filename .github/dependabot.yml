@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: docker
+    directory: /ubuntu/26.04
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: docker
+    directory: /debian/bookworm
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: docker
+    directory: /debian/trixie
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

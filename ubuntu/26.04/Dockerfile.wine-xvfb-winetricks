@@ -1,0 +1,28 @@
+FROM jammsen/base:ubuntu-26.04-base
+
+LABEL maintainer="Sebastian Schmidt"
+
+ENV TIMEZONE=Europe/Berlin \
+    WINEPREFIX=/wine \
+    DEBIAN_FRONTEND=noninteractive \
+    PUID=0 \
+    PGID=0
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends --no-install-suggests cabextract xvfb winbind \
+    && mkdir -pm755 /etc/apt/keyrings \
+    && wget -O- https://dl.winehq.org/wine-builds/winehq.key | gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key \
+    && wget --timestamping --directory-prefix=/etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/resolute/winehq-resolute.sources \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends --no-install-suggests winehq-stable \
+    && wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
+    && chmod +x ./winetricks \
+    && WINEDLLOVERRIDES="mscoree,mshtml=" wineboot -u \
+    && wineserver -w \
+    && ./winetricks -q winhttp wsh57 vcrun6sp6 \
+    && apt-get remove -y --purge cabextract \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf winetricks /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+CMD ["/bin/bash"]

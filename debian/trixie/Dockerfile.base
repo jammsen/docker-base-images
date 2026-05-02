@@ -1,4 +1,4 @@
-FROM debian:bookworm-20250929-slim
+FROM debian:13.4-slim@sha256:cedb1ef40439206b673ee8b33a46a03a0c9fa90bf3732f54704f99cb061d2c5a
 
 LABEL maintainer="Sebastian Schmidt"
 
@@ -11,7 +11,7 @@ RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
     && echo $TIMEZONE > /etc/timezone \
     && dpkg --add-architecture i386 \
     && apt-get update \
-    && apt-get install -y --no-install-recommends wget procps \
+    && apt-get install -y --no-install-recommends --no-install-suggests apt-transport-https ca-certificates gnupg2 procps wget \
     && apt-get clean \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
