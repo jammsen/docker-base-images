@@ -9,6 +9,9 @@ updates:
     directory: /debian/bookworm
     schedule:
       interval: weekly
+    ignore:
+      - dependency-name: "debian"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: docker
     directory: /debian/trixie
