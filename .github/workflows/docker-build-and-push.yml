@@ -28,7 +28,7 @@ jobs:
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.enabled == 'true' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Runner Info
         uses: ./.github/actions/runner-info
       - name: Set up QEMU
@@ -65,7 +65,7 @@ jobs:
     needs: [ bookworm-base ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Runner Info
         uses: ./.github/actions/runner-info
       - name: Set up QEMU
@@ -102,7 +102,7 @@ jobs:
     needs: [ bookworm-wine-stable ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Runner Info
         uses: ./.github/actions/runner-info
       - name: Set up QEMU
@@ -143,7 +143,7 @@ jobs:
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.enabled == 'true' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Runner Info
         uses: ./.github/actions/runner-info
       - name: Set up QEMU
@@ -180,7 +180,7 @@ jobs:
     needs: [ trixie-base ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Runner Info
         uses: ./.github/actions/runner-info
       - name: Set up QEMU
@@ -217,7 +217,7 @@ jobs:
     needs: [ trixie-wine-stable ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Runner Info
         uses: ./.github/actions/runner-info
       - name: Set up QEMU
@@ -258,7 +258,7 @@ jobs:
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.enabled == 'true' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Runner Info
         uses: ./.github/actions/runner-info
       - name: Set up QEMU
@@ -295,7 +295,7 @@ jobs:
     needs: [ ubuntu-2604-base ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Runner Info
         uses: ./.github/actions/runner-info
       - name: Set up QEMU
@@ -332,7 +332,7 @@ jobs:
     needs: [ ubuntu-2604-wine-stable ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Runner Info
         uses: ./.github/actions/runner-info
       - name: Set up QEMU
