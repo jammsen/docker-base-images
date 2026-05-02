@@ -19,3 +19,4 @@ runs:
         free -m
         echo "=== CPU ==="
         grep "model name" /proc/cpuinfo | sort -u
+        grep "model name" /proc/cpuinfo | wc -l
