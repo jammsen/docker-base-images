@@ -1,0 +1,21 @@
+name: Runner Info
+description: Print runner hardware and software info for debugging
+
+runs:
+  using: composite
+  steps:
+    - name: Get Runner Info
+      shell: bash
+      run: |
+        echo "=== User ==="
+        id
+        echo "=== Working directory ==="
+        pwd
+        echo "=== Git version ==="
+        git --version
+        echo "=== Docker version ==="
+        docker version
+        echo "=== Memory ==="
+        free -m
+        echo "=== CPU ==="
+        grep "model name" /proc/cpuinfo | sort -u
