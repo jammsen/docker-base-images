@@ -3,9 +3,9 @@ version: 2
 updates:
   - package-ecosystem: "docker"
     directories:
-      - "/"
-      - "/ubuntu"
-      - "/debian"
+      - "/debian/bookworm"
+      - "/debian/trixie"
+      - "/ubuntu/26.04"
     schedule:
       interval: "weekly"
     patterns: ["*"]
