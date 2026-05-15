@@ -2,8 +2,16 @@ version: 2
 
 updates:
   - package-ecosystem: "docker"
+    directory: "/debian/bookworm"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "debian"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+    multi-ecosystem-group: "all-dependencies"
+
+  - package-ecosystem: "docker"
     directories:
-      - "/debian/bookworm"
       - "/debian/trixie"
       - "/ubuntu/26.04"
     schedule:
