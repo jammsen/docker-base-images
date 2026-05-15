@@ -1,24 +1,18 @@
 version: 2
-updates:
-  - package-ecosystem: docker
-    directory: /ubuntu/26.04
-    schedule:
-      interval: weekly
 
-  - package-ecosystem: docker
-    directory: /debian/bookworm
+multi-ecosystem-groups:
+  all-dependencies:
     schedule:
-      interval: weekly
-    ignore:
-      - dependency-name: "debian"
-        update-types: ["version-update:semver-major"]
-
-  - package-ecosystem: docker
-    directory: /debian/trixie
-    schedule:
-      interval: weekly
-
-  - package-ecosystem: github-actions
-    directory: /
-    schedule:
-      interval: weekly
+      interval: "weekly"
+    updates:
+      - package-ecosystem: "docker"
+        directories:
+          - "/"
+          - "/ubuntu"
+          - "/debian"
+        patterns: ["*"]
+        multi-ecosystem-group: "all-dependencies"
+      - package-ecosystem: "github-actions"
+        directory: "/"
+        patterns: ["*"]
+        multi-ecosystem-group: "all-dependencies"
