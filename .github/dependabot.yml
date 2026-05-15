@@ -1,7 +1,5 @@
 version: 2
 
-updates: []
-
 multi-ecosystem-groups:
   all-dependencies:
     schedule:
@@ -10,7 +8,7 @@ multi-ecosystem-groups:
       - package-ecosystem: "docker"
         directories:
           - "/"
-          - "/ubuntu"    # adjust to your actual dirs
+          - "/ubuntu"
           - "/debian"
         patterns: ["*"]
         multi-ecosystem-group: "all-dependencies"
