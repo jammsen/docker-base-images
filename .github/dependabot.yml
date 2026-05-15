@@ -5,6 +5,7 @@ updates:
     directory: "/debian/bookworm"
     schedule:
       interval: "weekly"
+    patterns: ["*"]
     ignore:
       - dependency-name: "debian"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
